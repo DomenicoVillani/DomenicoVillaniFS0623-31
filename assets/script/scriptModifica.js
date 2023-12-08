@@ -1,3 +1,4 @@
+/* inizializzo costanti che usero' piu' volte*/
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZGQ2MDBkOGEyMDAwMThhNDhiOTQiLCJpYXQiOjE3MDIwMjY1OTMsImV4cCI6MTcwMzIzNjE5M30.5j8T8KWPoZfnOz-RSQQhsRBqXS1Xfi1Q6JeAEnURGp8'
 const options = {
     headers:{
@@ -8,7 +9,7 @@ const options = {
 let urlApi = 'https://striveschool-api.herokuapp.com/api/product/'
 let textDiv=''
 let apiCont = document.querySelector('.contMod')
-
+/* qui prendo il valore dopo il ? nell'url per poter riaccedere a tutto l'oggetto del prodotto */
 const searchParams = new URLSearchParams(window.location.search)
 const id = searchParams.get('id')
 console.log(id)
@@ -17,8 +18,10 @@ window.onload = async () => {
     console.log(resp)
     const info = await resp.json()
     console.log(info)
+    /* dopo aver estratto il prodotto tramite l'id lo stampo in dei input text da poter modificare , nome a parte per prevenire l'inserimento di 2 prodotti con lo stesso nome*/
     textDiv=`
     <div>
+    <h1> Product Management Panel </h1>
     <form>
         <label for="nameProd">Name product:</label>
         <input type="text" id="nameProd" name="nameProd" value=${info.name} disabled>
@@ -32,21 +35,20 @@ window.onload = async () => {
         <input type="text" id="price" name="price" value=${info.price} required>
     </form>
     </div>
-    <div>
-        <a href="#" class="btn btn-warning reset" onclick="resetForm()">Reset Form</a>
-        <a href="#" class="btn btn-success edit" onclick="modifica()">Make changes</a>
-        <a href="#" class="btn btn-danger delete" onclick="cancella()">Delete product</a>
-        <a href="homePage.html" class="btn btn-primary home">Home store</a>
+    <div class="my-5">
+        <a href="#" class="btn btn-warning reset mx-2 text-white" onclick="resetForm()">Reset Form</a>
+        <a href="#" class="btn btn-success edit mx-2" onclick="modifica()">Make changes</a>
+        <a href="#" class="btn btn-danger delete mx-2" onclick="cancella()">Delete product</a>
+        <a href="homePage.html" class="btn btn-primary home mx-2">Home store</a>
     </div>
     `
     apiCont.innerHTML=textDiv
 }
-
+/* creo una funzione reset per resettare tutto il form modificabile (quindi escludo il campo nome) prima id apportare questa modifica viene chiesto se si e' sicuri di proseguire*/
 function resetForm(){
     let result = confirm('Are you sure you want to reset the form??')
     if(result === true){
         alert('Form reset successfully')
-        document.querySelector('#nameProd').value =''
         document.querySelector('#descri').value =''
         document.querySelector('#brand').value =''
         document.querySelector('#image').value =''
@@ -56,9 +58,9 @@ function resetForm(){
     }
     
 }
-
+/* creo una funzione per cancellare la card el prodotto dall'api, prima di apportare questa modifica viene chiesto se si e' sicuri di proseguire */
 function cancella(){
-
+    
     let result = confirm('Are you sure you want to delete the product?')
     if(result === true){
         fetch('https://striveschool-api.herokuapp.com/api/product/'+id,{
@@ -70,8 +72,8 @@ function cancella(){
     })
     apiCont.innerHTML=''
     textDiv=`
-    <div>
-    <p>Product removed successfully</p>
+    <div class="marginTop">
+    <p class="pText">Product removed successfully</p>
     <a href="homePage.html" class="btn btn-primary home">Home store</a>
     </div>
     `
@@ -80,7 +82,7 @@ function cancella(){
         alert('Product not reset ')
     }
 }
-
+/* creo una funzione per modificare le card (nome escluso) prima di apportare questa modifica viene chiesto se si e' sicuri di proseguire*/
 function modifica(){
     let result = confirm('Are you sure you want to edit the product?')
     if(result === true){
@@ -101,8 +103,8 @@ function modifica(){
     .then(res=>{
         apiCont.innerHTML=''
         textDiv=`
-        <div>
-        <p>Product modified successfully</p>
+        <div class="marginTop">
+        <p class="pText">Product modified successfully</p>
         <a href="homePage.html" class="btn btn-primary home">Home store</a>
         </div>
         `
@@ -112,5 +114,4 @@ function modifica(){
     }else{
         alert('Product not edit ')
     }
-    
 }

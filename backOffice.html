@@ -5,31 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina per creare e aggiungere prodotti</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/backOffice.css">
 </head>
-<body>
-    <h1>Aggiungi prodotti</h1>
-    <form id="apiForm">
-        <label for="nameProd">Name product:</label>
-        <input type="text" id="nameProd" name="nameProd" required>
-        <label for="descri">Description:</label>
-        <input type="text" id="descri" name="descri" required>
-        <label for="brand">Brand:</label>
-        <input type="text" id="brand" name="brand" required>
-        <label for="image">Image:</label>
-        <input type="text" id="image" name="image" required>
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="price" required>
-    
-        <button type="button" onclick="submitForm()">Insert product</button>
-        <button type="reset">Reset form</button>
-    </form>
+<body class="text-center">
+    <h1 class="my-5">Add Products</h1>
+    <div class="my-5">
+      <form id="apiForm">
+          <label for="nameProd">Name product:</label>
+          <input type="text" id="nameProd" name="nameProd" required>
+          <label for="descri">Description:</label>
+          <input type="text" id="descri" name="descri" required>
+          <label for="brand">Brand:</label>
+          <input type="text" id="brand" name="brand" required>
+          <label for="image">Image:</label>
+          <input type="text" id="image" name="image" required>
+          <label for="price">Price:</label>
+          <input type="text" id="price" name="price" required>
+      
+          <div class="d-flex my-5 justify-content-evenly">
+            <button type="reset">Reset form</button>
+            <button type="button" onclick="submitForm()">Insert product</button>
+          </div>
+      </form>
+    </div>
 
       <div class="container">
-        <h2>Prodotti appena aggiunti:</h2>
+        <h2>Recently Added Products:</h2>
         <div class="row">
         </div>
       </div>
 
+      <a href="homePage.html" class="btn btn-primary home">Home store</a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="assets/script/scriptBackOffice.js"></script>

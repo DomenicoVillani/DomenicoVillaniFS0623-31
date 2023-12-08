@@ -1,3 +1,4 @@
+/* inizializzo costanti che usero' piu' volte*/
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZGQ2MDBkOGEyMDAwMThhNDhiOTQiLCJpYXQiOjE3MDIwMjY1OTMsImV4cCI6MTcwMzIzNjE5M30.5j8T8KWPoZfnOz-RSQQhsRBqXS1Xfi1Q6JeAEnURGp8'
 const urlApi = 'https://striveschool-api.herokuapp.com/api/product/'
 const btnLoadCard = document.querySelector('.btnLoadCard')
@@ -10,7 +11,7 @@ const options = {
 }
 
 fetcher(urlApi,options)
-
+/* creo una funzione asincrona per mostrare tutte le card con tutti i prodotti dell'api*/
 async function fetcher(url,option){
     const response = await fetch(url,option)
     const data = await response.json()
@@ -18,18 +19,19 @@ async function fetcher(url,option){
     function createCard(){
       let eleApiCont = ''
       data.forEach(card => {
+        /* qua creo effetivamente tutte le card*/
         eleApiCont += `
-        <div class="col-3 mx-4 my-3">
+        <div class="col-3 my-3">
         <div class="card">
         <img src=${card.imageUrl} class="card-img-top" alt="image product">
         <div class="card-body">
-        <h5 class="card-title text-center">${card.name}</h5>
-        <p class="card-text text-center">${card.brand}</p>
-        <p class="card-text text-center">${card.description}</p>
+        <h5 class="card-title text-center fw-bold fs-4">${card.name}</h5>
+        <p class="card-text text-center text-uppercase">${card.brand}</p>
+        <p class="card-text text-center hidden">${card.description}</p>
         <p class="card-text text-center">${card.price} $</p>
-        <div class="d-flex">
-        <a href="#" data-id="${card._id}" class="btn btn-success info">More info</a>
-        <a href="#" data-id="${card._id}" class="btn btn-danger edit">Edit product</a>
+        <div class="d-flex justify-content-evenly">
+        <a href="#" data-id="${card._id}" class="btn btn-success info btn-sm">More info</a>
+        <a href="#" data-id="${card._id}" class="btn btn-danger edit btn-sm">Edit product</a>
         </div>
         </div>
         </div>
@@ -38,6 +40,7 @@ async function fetcher(url,option){
       });
       apiCont.innerHTML=eleApiCont
       const info = document.querySelectorAll('.info')
+      /* credo due funzioni al click dei 2 pulsanti edit o info che porta l'utente alla pagina cliccata modificando l'url per poi poter riprendere le informazioni*/
       info.forEach(button => {
         button.addEventListener('click',function(event){
           const cardId = event.target.getAttribute('data-id')
@@ -52,32 +55,8 @@ async function fetcher(url,option){
         })
       })
     }
-    createCard()
+    createCard()  /* richiamo la funzione per la creazione delle carte*/
 }
 
 
-
-
-/*
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZGQ2MDBkOGEyMDAwMThhNDhiOTQiLCJpYXQiOjE3MDIwMjY1OTMsImV4cCI6MTcwMzIzNjE5M30.5j8T8KWPoZfnOz-RSQQhsRBqXS1Xfi1Q6JeAEnURGp8'
-fetch("https://striveschool-api.herokuapp.com/api/put-your-endpoint-here/", {
-headers: {
-"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZGQ2MDBkOGEyMDAwMThhNDhiOTQiLCJpYXQiOjE3MDIwMjY1OTMsImV4cCI6MTcwMzIzNjE5M30.5j8T8KWPoZfnOz-RSQQhsRBqXS1Xfi1Q6JeAEnURGp8"
-}
-})
-
-
-
-
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-success">More info</a>
-    <a href="#" class="btn btn-danger">Edit product</a>
-  </div>
-</div>
-
-*/
 

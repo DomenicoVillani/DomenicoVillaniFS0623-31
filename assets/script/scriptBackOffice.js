@@ -1,8 +1,10 @@
+/* inizializzo costanti che usero' piu' volte*/
+
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZGQ2MDBkOGEyMDAwMThhNDhiOTQiLCJpYXQiOjE3MDIwMjY1OTMsImV4cCI6MTcwMzIzNjE5M30.5j8T8KWPoZfnOz-RSQQhsRBqXS1Xfi1Q6JeAEnURGp8'
 const urlApi = 'https://striveschool-api.herokuapp.com/api/product/'
 let eleApiCont = ''
 let apiCont = document.querySelector('.row')
-
+/* creo una funzione per prendere il valore dei form inseriti dall'utente*/
 function submitForm(){
     let nome = document.getElementById('nameProd').value
     let descrizione = document.getElementById('descri').value
@@ -17,8 +19,7 @@ function submitForm(){
         imageUrl:image,
         price:prezzo
     }
-
-
+/*dopo aver preso i valori faccio una richiesta di tipo post all'api per inserirli*/
     fetch(urlApi,{
         method: 'POST',
         body: JSON.stringify(prodotto),
@@ -30,6 +31,7 @@ function submitForm(){
     .then(response => response.json())
     .then(prodotto =>{
         console.log(prodotto)
+        /* qua sotto creo le card personalizzate per ogni prodotto */
         eleApiCont += `
         <div class="col-3 mx-4 my-3">
         <div class="card">
@@ -44,6 +46,7 @@ function submitForm(){
         </div>
         `
         apiCont.innerHTML=eleApiCont
+        /* azzero i form di input*/
         document.getElementById('nameProd').value = ''
         document.getElementById('descri').value = ''
         document.getElementById('brand').value = ''
